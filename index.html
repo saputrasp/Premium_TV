@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login IPTV Premium</title>
+  <title>IPTV Premium Login</title>
   <style>
     body {
       font-family: Arial;
       text-align: center;
       margin-top: 100px;
-      background: #111;
+      background: #0d0d0d;
       color: white;
     }
     input {
       padding: 10px;
       margin: 5px;
-      width: 200px;
+      width: 220px;
+      border-radius: 5px;
+      border: none;
     }
     button {
       padding: 10px 20px;
-      background: red;
+      background: #e50914;
       color: white;
       border: none;
       cursor: pointer;
+      border-radius: 5px;
     }
     a {
+      display: inline-block;
+      margin-top: 20px;
       color: yellow;
       font-size: 18px;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
-<h2>🔒 Login IPTV Premium</h2>
+<h2>🔒 IPTV Premium</h2>
+<p>Silakan login untuk akses</p>
 
 <input type="text" id="user" placeholder="Username"><br>
 <input type="password" id="pass" placeholder="Password"><br>
 
 <button onclick="login()">Login</button>
 
-<p id="result"></p>
+<div id="result"></div>
 
 <script>
 function login(){
   var u = document.getElementById("user").value;
   var p = document.getElementById("pass").value;
 
-  if(u === "admin" && p === "192168"){
+  if(u === "vip" && p === "12345"){
     document.getElementById("result").innerHTML =
-      '<br><a href="https://saputrasp.github.io/Premium_TV/VOD%20Baru%20April.m3u">▶️ Masuk IPTV</a>';
+      '<a href="https://saputrasp.github.io/Premium_TV/New%20VOD%20April.m3u">▶️ MASUK IPTV</a>';
   } else {
     document.getElementById("result").innerHTML = "❌ Username / Password salah!";
   }
