@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IPTV Premium Login</title>
+  <title>IPTV Login System</title>
   <style>
     body {
       font-family: Arial;
-      text-align: center;
-      margin-top: 100px;
       background: #0d0d0d;
       color: white;
+      text-align: center;
+      margin-top: 80px;
     }
     input {
       padding: 10px;
@@ -19,43 +19,113 @@
     }
     button {
       padding: 10px 20px;
+      margin: 5px;
       background: #e50914;
       color: white;
       border: none;
       cursor: pointer;
       border-radius: 5px;
     }
-    a {
-      display: inline-block;
+    .box {
       margin-top: 20px;
+    }
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
       color: yellow;
-      font-size: 18px;
-      text-decoration: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
 
-<h2>🔒 IPTV Premium</h2>
-<p>Silakan login untuk akses</p>
+<h2>🔒 IPTV LOGIN</h2>
 
-<input type="text" id="user" placeholder="Username"><br>
-<input type="password" id="pass" placeholder="Password"><br>
+<div id="login">
+  <input type="text" id="user" placeholder="Username"><br>
+  <input type="password" id="pass" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+</div>
 
-<button onclick="login()">Login</button>
-
-<div id="result"></div>
+<div id="content"></div>
 
 <script>
-function login(){
-  var u = document.getElementById("user").value;
-  var p = document.getElementById("pass").value;
+// DATA USER
+let users = {
+  "admin": "Allahu99",
+  "putra": "iptvpremium"
+};
 
-  if(u === "vip" && p === "12345"){
-    document.getElementById("result").innerHTML =
-      '<a href="https://raw.githubusercontent.com/saputrasp/Premium_TV/refs/heads/main/New%20VOD%20April.m3u">▶️ MASUK IPTV</a>';
+// LINK RAW IPTV
+const IPTV_LINK = "https://raw.githubusercontent.com/saputrasp/Premium_TV/main/New%20VOD%20April.m3u";
+
+// LOGIN FUNCTION
+function login(){
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
+
+  if(users[u] && users[u] === p){
+
+    document.getElementById("login").style.display = "none";
+
+    // ADMIN MENU
+    if(u === "admin"){
+      document.getElementById("content").innerHTML = `
+        <h2>👑 ADMIN PANEL</h2>
+
+        <div class="box">
+          <button onclick="window.location.href='${IPTV_LINK}'">
+            📺 Lihat Kode M3U
+          </button>
+        </div>
+
+        <div class="box">
+          <h3>➕ Tambah Akun</h3>
+          <input type="text" id="newUser" placeholder="Username baru"><br>
+          <input type="password" id="newPass" placeholder="Password baru"><br>
+          <button onclick="tambahAkun()">Tambah</button>
+          <p id="status"></p>
+        </div>
+      `;
+    }
+
+    // USER / PELANGGAN
+    else {
+      document.getElementById("content").innerHTML = `
+        <div class="popup">
+          ✅ Selamat kamu berhasil masuk
+        </div>
+      `;
+
+      // redirect setelah 2 detik
+      setTimeout(() => {
+        window.location.href = IPTV_LINK;
+      }, 2000);
+    }
+
   } else {
-    document.getElementById("result").innerHTML = "❌ Username / Password salah!";
+    alert("❌ Username / Password salah!");
+  }
+}
+
+// TAMBAH AKUN (HANYA ADMIN)
+function tambahAkun(){
+  let newUser = document.getElementById("newUser").value;
+  let newPass = document.getElementById("newPass").value;
+
+  if(newUser && newPass){
+    users[newUser] = newPass;
+    document.getElementById("status").innerText = "✅ Akun berhasil ditambahkan!";
+  } else {
+    document.getElementById("status").innerText = "❌ Isi semua field!";
   }
 }
 </script>
